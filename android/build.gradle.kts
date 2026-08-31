@@ -20,7 +20,7 @@ configure<LibraryExtension> {
 
     sourceSets {
         named("main") {
-            java.directories.add("src/main/kotlin")
+            java.srcDir("src/main/kotlin")
         }
     }
 
