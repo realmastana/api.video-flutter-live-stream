@@ -16,7 +16,7 @@ android {
 
     sourceSets {
         named("main") {
-            java.directories.add(file("src/main/kotlin"))
+            java.srcDirs("src/main/kotlin")
         }
     }
 
@@ -25,8 +25,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
