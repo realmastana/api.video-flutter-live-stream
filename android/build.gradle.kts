@@ -46,8 +46,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
 
-    implementation("io.github.thibaultbee:streampack-core:$streamPackVersion")
-    implementation("io.github.thibaultbee:streampack-rtmp:$streamPackVersion")
+    implementation("io.github.thibaultbee.streampack:streampack-core:$streamPackVersion")
+    implementation("io.github.thibaultbee.streampack:streampack-rtmp:$streamPackVersion")
 }
 
 repositories {
