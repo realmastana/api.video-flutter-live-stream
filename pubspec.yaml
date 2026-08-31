@@ -17,6 +17,7 @@ dependencies:
   meta: ^1.14.0
   native_device_orientation: ^2.1.1
   plugin_platform_interface: ^2.1.8
+  settings_ui: ^3.0.1
 
 dev_dependencies:
   flutter_test:

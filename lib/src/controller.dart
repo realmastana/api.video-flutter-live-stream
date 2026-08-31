@@ -64,7 +64,7 @@ class ApiVideoLiveStreamController {
       });
       await setCameraInfo(cameraInfo);
     } else {
-      await setCameraId(_initialCameraId!);
+      await setCameraId(_initialCameraId);
     }
     await setVideoConfig(_initialVideoConfig);
     await setAudioConfig(_initialAudioConfig);
