@@ -1,3 +1,7 @@
+import com.android.build.api.dsl.LibraryExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 group = "video.api.flutter.livestream"
 version = "1.0-SNAPSHOT"
 
@@ -6,7 +10,7 @@ plugins {
     kotlin("android")
 }
 
-android {
+configure<LibraryExtension> {
     compileSdk = 37
     namespace = "video.api.flutter.livestream"
 
@@ -16,7 +20,7 @@ android {
 
     sourceSets {
         named("main") {
-            java.srcDirs("src/main/kotlin")
+            java.directories.add("src/main/kotlin")
         }
     }
 
@@ -24,9 +28,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
 
-    kotlinOptions {
-        jvmTarget = "17"
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
     }
 }
 

@@ -1,6 +1,11 @@
+import java.util.Properties
+import com.android.build.api.dsl.ApplicationExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.android.application")
-    id("kotlin-android")
+    kotlin("android")
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -12,16 +17,16 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-var flutterVersionCode = localProperties.getProperty("flutter.versionCode", "1")
-var flutterVersionName = localProperties.getProperty("flutter.versionName", "1.0")
+val flutterVersionCode = localProperties.getProperty("flutter.versionCode", "1")
+val flutterVersionName = localProperties.getProperty("flutter.versionName", "1.0")
 
-android {
+configure<ApplicationExtension> {
     compileSdk = 37
     namespace = "video.api.flutter.livestream.example"
 
     sourceSets {
         named("main") {
-            java.srcDirs("src/main/kotlin")
+            java.directories.add("src/main/kotlin")
         }
     }
 
@@ -34,7 +39,7 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -48,9 +53,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
 
-    kotlinOptions {
-        jvmTarget = "17"
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
     }
 }
 
