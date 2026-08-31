@@ -38,7 +38,7 @@ tasks.withType<KotlinCompile>().configureEach {
 
 dependencies {
     val kotlinVersion = "2.0.0"
-    val streamPackVersion = "2.9.0"
+    val streamPackVersion = "2.6.1"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
