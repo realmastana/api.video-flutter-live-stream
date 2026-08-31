@@ -38,7 +38,7 @@ tasks.withType<KotlinCompile>().configureEach {
 
 dependencies {
     val kotlinVersion = "2.0.0"
-    val streamPackVersion = "2.6.1"
+    val streamPackVersion = "3.2.0"
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -46,8 +46,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
 
-    implementation("io.github.thibaultbee:streampack:$streamPackVersion")
-    implementation("io.github.thibaultbee:streampack-extension-rtmp:$streamPackVersion")
+    implementation("io.github.thibaultbee:streampack-core:$streamPackVersion")
+    implementation("io.github.thibaultbee:streampack-rtmp:$streamPackVersion")
 }
 
 repositories {
