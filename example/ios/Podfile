@@ -37,5 +37,16 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+
+    # Workaround for a Swift compiler crash (Xcode 26 / Swift 6.3,
+    # "Found ownership error?!" in the CopyPropagation pass) triggered by
+    # HaishinKit 1.9.3 (pulled in by the ApiVideoLiveStream pod) when built
+    # with optimizations. Building this pod at -Onone avoids the crash.
+    # See https://github.com/apivideo/api.video-swift-live-stream
+    if target.name == 'HaishinKit'
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
+      end
+    end
   end
 end

@@ -13,7 +13,10 @@ All changes to this project will be documented in this file.
   KGP 2.4.0) so apps keep 16 KB page-size aligned native libraries
 - Android: keep 16 KB page size support by never using legacy native
   library packaging
-- iOS: no changes
+- iOS: work around a Swift 6.3 (Xcode 26) compiler crash while compiling
+  HaishinKit 1.9.3 in release builds (the example app's Podfile builds
+  HaishinKit at `-Onone`; see the README for the snippet to add to your
+  app's Podfile)
 
 ## [1.2.0] - 2024-02-12
 

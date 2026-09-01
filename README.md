@@ -192,6 +192,39 @@ the `YOUR_PROJECT_NAME/example/ios/Runner.xcworkspace` file.
 <br />Click on Example, go in `Signin & Capabilities` tab, add your team and create a unique bundle
 identifier.
 
+### iOS: Xcode 26 / Swift 6.3 compiler crash workaround
+
+With Xcode 26 (Swift 6.3+), release builds can crash inside the Swift compiler while compiling
+HaishinKit 1.9.3 (pulled in by the `ApiVideoLiveStream` pod):
+
+```
+Found ownership error?!
+While running pass ... SILFunctionTransform "CopyPropagation" on SILFunction
+"...MixerNodeC6format..." (at Pods/HaishinKit/Sources/IO/AudioNode.swift:137:5)
+```
+
+This is a Swift compiler bug triggered by old HaishinKit code, not a source error. Until
+[api.video-ios-live-stream](https://github.com/apivideo/api.video-swift-live-stream) ships a
+HaishinKit update (1.9.9 contains the same code; 2.x is a breaking rewrite), add this
+`post_install` hook to your app's `ios/Podfile` to build HaishinKit without optimizations:
+
+```ruby
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+
+    if target.name == 'HaishinKit'
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
+      end
+    end
+  end
+end
+```
+
+Then run `flutter clean` (or delete `ios/Pods` and `ios/Podfile.lock`) and rebuild. The example
+app's `ios/Podfile` already includes this hook.
+
 ## Plugins
 
 api.video Flutter live stream library is using external native libraries:
