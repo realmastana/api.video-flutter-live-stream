@@ -2,6 +2,19 @@
 
 All changes to this project will be documented in this file.
 
+## [1.2.1] - 2026-09-01
+
+- Android: migrate to StreamPack 3.2.0 (package renamed to
+  `io.github.thibaultbee.streampack.core`, streamers rebuilt around
+  `SingleStreamer`, `CameraSourceFactory`, `RtmpEndpointFactory`)
+- Android: migrate the plugin to AGP 9 built-in Kotlin (no more
+  `kotlin-android` Gradle plugin) while keeping compatibility with AGP < 9
+- Android: update Gradle/AGP/Kotlin toolchain (Gradle 9.5, AGP 9.1.0,
+  KGP 2.4.0) so apps keep 16 KB page-size aligned native libraries
+- Android: keep 16 KB page size support by never using legacy native
+  library packaging
+- iOS: no changes
+
 ## [1.2.0] - 2024-02-12
 
 - Add a `fit` parameter to `ApiVideoCameraPreview` to control the fit of the preview inside its

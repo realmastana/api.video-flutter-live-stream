@@ -1,13 +1,12 @@
 import com.android.build.api.dsl.LibraryExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 group = "video.api.flutter.livestream"
 version = "1.0-SNAPSHOT"
 
 plugins {
     id("com.android.library")
-    kotlin("android")
 }
 
 configure<LibraryExtension> {
@@ -28,19 +27,26 @@ configure<LibraryExtension> {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
 }
 
-tasks.withType<KotlinCompile>().configureEach {
+// Configure the Kotlin compiler through the `kotlin` extension so that this
+// plugin module builds both with the classic Kotlin Gradle Plugin (AGP < 9,
+// or `android.builtInKotlin=false`) and with AGP 9 built-in Kotlin support.
+project.extensions.configure(KotlinAndroidProjectExtension::class.java) {
     compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_17)
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
 dependencies {
-    val kotlinVersion = "2.0.0"
     val streamPackVersion = "3.2.0"
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")

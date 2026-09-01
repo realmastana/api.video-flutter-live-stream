@@ -4,13 +4,14 @@ import android.content.Context
 import android.hardware.camera2.CameraCharacteristics
 import android.os.Build
 import android.util.Range
-import io.github.thibaultbee.streampack.utils.Zoom.Companion.DEFAULT_ZOOM_RATIO
-import io.github.thibaultbee.streampack.utils.getCameraCharacteristics
-import io.github.thibaultbee.streampack.utils.getScalerMaxZoom
-import io.github.thibaultbee.streampack.utils.getZoomRatioRange
-import io.github.thibaultbee.streampack.utils.isBackCamera
-import io.github.thibaultbee.streampack.utils.isExternalCamera
-import io.github.thibaultbee.streampack.utils.isFrontCamera
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.CameraSettings
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.extensions.cameraManager
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.extensions.getCameraCharacteristics
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.extensions.isBackCamera
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.extensions.isExternalCamera
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.extensions.isFrontCamera
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.extensions.scalerMaxZoom
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.extensions.zoomRatioRange
 import video.api.flutter.livestream.generated.CameraInfoHostApi
 import video.api.flutter.livestream.generated.NativeCameraLensDirection
 
@@ -24,20 +25,21 @@ class CameraInfoHostApiImpl(
 
     override fun getLensDirection(cameraId: String): NativeCameraLensDirection {
         return when {
-            context.isFrontCamera(cameraId) -> NativeCameraLensDirection.FRONT
-            context.isBackCamera(cameraId) -> NativeCameraLensDirection.BACK
-            context.isExternalCamera(cameraId) -> NativeCameraLensDirection.OTHER
+            context.cameraManager.isFrontCamera(cameraId) -> NativeCameraLensDirection.FRONT
+            context.cameraManager.isBackCamera(cameraId) -> NativeCameraLensDirection.BACK
+            context.cameraManager.isExternalCamera(cameraId) -> NativeCameraLensDirection.OTHER
             else -> throw IllegalArgumentException("Invalid camera position for camera $cameraId")
         }
     }
 
     private fun getZoomRange(cameraId: String): Range<Float> {
+        val characteristics = context.getCameraCharacteristics(cameraId)
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            context.getZoomRatioRange(cameraId)!!
+            characteristics.zoomRatioRange!!
         } else {
             Range(
-                DEFAULT_ZOOM_RATIO,
-                context.getScalerMaxZoom(cameraId)
+                CameraSettings.Zoom.DEFAULT_ZOOM_RATIO,
+                characteristics.scalerMaxZoom
             )
         }
     }

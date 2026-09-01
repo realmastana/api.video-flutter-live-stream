@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.view.TextureRegistry
+import kotlinx.coroutines.runBlocking
 import video.api.flutter.livestream.generated.LiveStreamFlutterApi
 import video.api.flutter.livestream.generated.LiveStreamHostApi
 import video.api.flutter.livestream.generated.NativeAudioConfig
@@ -42,7 +43,7 @@ class LiveStreamHostApiImpl(
         flutterView?.dispose()
         instanceManager.dispose()
         flutterView = LiveStreamViewManager(
-            instanceManager.getInstance(),
+            runBlocking { instanceManager.getInstance() },
             textureRegistry,
             permissionsManager,
             { executeOnMain { liveStreamFlutterApi.onIsConnectedChanged(true) {} } },
@@ -76,6 +77,8 @@ class LiveStreamHostApiImpl(
     override fun setAudioConfig(audioConfig: NativeAudioConfig, callback: (Result<Unit>) -> Unit) {
         flutterView!!.setAudioConfig(
             audioConfig.toAudioConfig(),
+            audioConfig.enableEchoCanceler,
+            audioConfig.enableNoiseSuppressor,
             { callback(Result.success(Unit)) },
             { callback(Result.failure(it)) })
     }

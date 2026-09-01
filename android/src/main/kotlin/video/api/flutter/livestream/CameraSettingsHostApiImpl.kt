@@ -1,6 +1,8 @@
 package video.api.flutter.livestream
 
-import io.github.thibaultbee.streampack.utils.CameraSettings
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.CameraSettings
+import io.github.thibaultbee.streampack.core.elements.sources.video.camera.ICameraSource
+import kotlinx.coroutines.runBlocking
 import video.api.flutter.livestream.generated.CameraSettingsHostApi
 import video.api.flutter.livestream.manager.InstanceManager
 
@@ -9,13 +11,17 @@ class CameraSettingsHostApiImpl(
 ) :
     CameraSettingsHostApi {
     private val settings: CameraSettings
-        get() = instanceManager.getInstance().settings.camera
+        get() {
+            val streamer = runBlocking { instanceManager.getInstance() }
+            return (streamer.videoInput.sourceFlow.value as? ICameraSource)?.settings
+                ?: throw IllegalStateException("Camera source is not available")
+        }
 
     override fun setZoomRatio(zoomRatio: Double) {
-        settings.zoom.zoomRatio = zoomRatio.toFloat()
+        runBlocking { settings.zoom.setZoomRatio(zoomRatio.toFloat()) }
     }
 
     override fun getZoomRatio(): Double {
-        return settings.zoom.zoomRatio.toDouble()
+        return runBlocking { settings.zoom.getZoomRatio().toDouble() }
     }
 }
