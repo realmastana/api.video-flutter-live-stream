@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-09-02
+
+- Docs: fresh changelog for the new package; README badges and links now
+  point to the maintainer ([@realmastana](https://twitter.com/realmastana))
+  while crediting api.video for the original work
+- CI: GitHub Actions workflows for analysis/tests and automatic publishing
+  to pub.dev whenever the version in `pubspec.yaml` changes
+
 ## [1.0.0] - 2026-09-01
 
 Initial release of `flutter_video_live_stream`, a maintained fork of
