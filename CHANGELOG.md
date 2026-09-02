@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2026-09-02
+
+### Fixed
+
+- Android: camera preview froze (stuck on the last frame) after calling
+  `toggleCamera()` / `setCameraId()`. With StreamPack 3.2.0, `setCameraId`
+  swaps the video source and releases the previous camera source without
+  transferring the preview to the new one. The manager now stops the preview
+  before switching cameras and restarts it on the new camera afterwards
+  (mirroring the existing `setVideoConfig` behavior), and restores the
+  preview if the switch fails.
+
 ## [1.0.1] - 2026-09-02
 
 - Docs: fresh changelog for the new package; README badges and links now

@@ -140,10 +140,30 @@ class LiveStreamViewManager(
         permissionsManager.requestPermission(
             Manifest.permission.CAMERA,
             onGranted = {
+                val wasPreviewing = _isPreviewing
                 try {
+                    // StreamPack's setCameraId swaps the video source: the previous camera
+                    // source is released and the new one is created without any preview
+                    // surface or target. Stop the preview first so the switch happens in a
+                    // clean state, then re-apply the preview to the new camera afterwards.
+                    if (wasPreviewing) {
+                        stopPreview()
+                    }
                     runBlocking { streamer.setCameraId(camera) }
-                    onSuccess()
+                    if (wasPreviewing) {
+                        startPreview(onSuccess, onError)
+                    } else {
+                        onSuccess()
+                    }
                 } catch (e: Exception) {
+                    // Restore the preview if the camera switch failed
+                    if (wasPreviewing && !_isPreviewing) {
+                        try {
+                            startPreview({}, {})
+                        } catch (_: Exception) {
+                            // Ignore: the switch error below is the important one
+                        }
+                    }
                     onError(e)
                 }
             },
