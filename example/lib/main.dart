@@ -1,6 +1,6 @@
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
-import 'package:apivideo_live_stream_example/settings_screen.dart';
-import 'package:apivideo_live_stream_example/types/params.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
+import 'package:flutter_video_live_stream_example/settings_screen.dart';
+import 'package:flutter_video_live_stream_example/types/params.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';

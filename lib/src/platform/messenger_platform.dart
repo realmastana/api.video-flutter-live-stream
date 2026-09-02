@@ -1,6 +1,6 @@
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
-import 'package:apivideo_live_stream/src/platform/extensions/size_extensions.dart';
-import 'package:apivideo_live_stream/src/platform_interface/platform_interface.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
+import 'package:flutter_video_live_stream/src/platform/extensions/size_extensions.dart';
+import 'package:flutter_video_live_stream/src/platform_interface/platform_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 

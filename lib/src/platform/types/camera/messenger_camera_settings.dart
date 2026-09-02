@@ -1,5 +1,5 @@
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
-import 'package:apivideo_live_stream/src/platform/generated/live_stream_api.g.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
+import 'package:flutter_video_live_stream/src/platform/generated/live_stream_api.g.dart';
 import 'package:flutter/services.dart';
 
 /// An implementation of [ZoomRatio] using the messenger API.

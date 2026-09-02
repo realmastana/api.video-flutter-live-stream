@@ -1,4 +1,4 @@
-import 'package:apivideo_live_stream/src/platform_interface/types/range.dart';
+import 'package:flutter_video_live_stream/src/platform_interface/types/range.dart';
 import 'package:meta/meta.dart';
 
 /// Camera facing direction

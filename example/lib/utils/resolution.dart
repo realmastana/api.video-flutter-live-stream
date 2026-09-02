@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
-import 'package:apivideo_live_stream_example/utils/set.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
+import 'package:flutter_video_live_stream_example/utils/set.dart';
 
 Map<Size, String> inflateResolutionsMap() {
   return PredefinedResolution.values

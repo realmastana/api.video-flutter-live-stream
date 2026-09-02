@@ -1,4 +1,4 @@
-import 'package:apivideo_live_stream/src/platform/generated/live_stream_api.g.dart';
+import 'package:flutter_video_live_stream/src/platform/generated/live_stream_api.g.dart';
 import 'package:meta/meta.dart';
 
 /// Audio channel

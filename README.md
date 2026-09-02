@@ -56,13 +56,13 @@ This module is made for broadcasting RTMP live stream from smartphone camera.
 Run the following command at the root of your project:
 
 ```shell
-flutter pub add apivideo_live_stream
+flutter pub add flutter_video_live_stream
 ```
 
 In your dart file, import the package:
 
 ```dart 
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
 ```
 
 ### Permissions
@@ -206,26 +206,26 @@ Flutter 3.44).
 #### Checkout directory name requirement
 
 Flutter derives the SwiftPM package identity from the plugin's path basename, and it must match
-the plugin name (`apivideo_live_stream`). This matters when consuming this repository as a path
+the plugin name (`flutter_video_live_stream`). This matters when consuming this repository as a path
 dependency (including the example app):
 
 ```bash
-git clone <this-repo-url> apivideo_live_stream   # <- directory name matters!
-cd apivideo_live_stream/example
+git clone <this-repo-url> flutter_video_live_stream   # <- directory name matters!
+cd flutter_video_live_stream/example
 flutter build ios
 ```
 
-Git dependencies (`apivideo_live_stream: {git: ...}` in pubspec) are currently broken by a
+Git dependencies (`flutter_video_live_stream: {git: ...}` in pubspec) are currently broken by a
 Flutter tooling limitation: pub clones into `~/.pub-cache/git/<repo>-<commit>/`, and the commit
 suffix makes the package identity mismatch (`unable to override package ... doesn't match
 override's identity`). Use a path dependency instead, for example a git submodule checked out
-under a directory named `apivideo_live_stream`:
+under a directory named `flutter_video_live_stream`:
 
 ```bash
-git submodule add <this-repo-url> packages/apivideo_live_stream
+git submodule add <this-repo-url> packages/flutter_video_live_stream
 # pubspec.yaml
-#   apivideo_live_stream:
-#     path: packages/apivideo_live_stream
+#   flutter_video_live_stream:
+#     path: packages/flutter_video_live_stream
 ```
 
 ## Plugins

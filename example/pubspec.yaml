@@ -1,4 +1,4 @@
-name: apivideo_live_stream_example
+name: flutter_video_live_stream_example
 description: Demonstrates how to use the apivideo_live_stream plugin.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.2.1+1
@@ -14,7 +14,7 @@ dependencies:
   settings_ui: ^3.0.1
   wakelock_plus: ^1.1.4
 
-  apivideo_live_stream:
+  flutter_video_live_stream:
     # When depending on this package from a real application you should use:
     #   apivideo_live_stream: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints

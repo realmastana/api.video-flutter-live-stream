@@ -1,6 +1,6 @@
-import 'package:apivideo_live_stream_example/utils/audio_bitrate.dart';
-import 'package:apivideo_live_stream_example/utils/channel.dart';
-import 'package:apivideo_live_stream_example/utils/fps.dart';
+import 'package:flutter_video_live_stream_example/utils/audio_bitrate.dart';
+import 'package:flutter_video_live_stream_example/utils/channel.dart';
+import 'package:flutter_video_live_stream_example/utils/fps.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:core';
 import 'dart:ui';
 
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
 
 class Params {
   /// The video configuration

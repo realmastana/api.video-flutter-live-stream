@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 

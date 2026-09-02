@@ -1,6 +1,6 @@
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
-import 'package:apivideo_live_stream/src/platform/extensions/lens_direction_extensions.dart';
-import 'package:apivideo_live_stream/src/platform/generated/live_stream_api.g.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
+import 'package:flutter_video_live_stream/src/platform/extensions/lens_direction_extensions.dart';
+import 'package:flutter_video_live_stream/src/platform/generated/live_stream_api.g.dart';
 import 'package:flutter/services.dart';
 
 /// A builder for creating [CameraInfo] instances using the messenger API.

@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "apivideo_live_stream",
+    name: "flutter_video_live_stream",
     platforms: [
         .iOS(.v15)
     ],
     products: [
-        .library(name: "apivideo-live-stream", targets: ["apivideo_live_stream"])
+        .library(name: "flutter-video-live-stream", targets: ["flutter_video_live_stream"])
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework"),
@@ -21,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "apivideo_live_stream",
+            name: "flutter_video_live_stream",
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework"),
                 .product(name: "ApiVideoLiveStream", package: "api.video-swift-live-stream"),

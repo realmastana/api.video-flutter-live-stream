@@ -1,4 +1,4 @@
-import 'package:apivideo_live_stream_example/utils/set.dart';
+import 'package:flutter_video_live_stream_example/utils/set.dart';
 
 Set<int> fpsList = {24, 25, 30};
 

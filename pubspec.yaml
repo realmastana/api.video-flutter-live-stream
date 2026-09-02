@@ -1,10 +1,12 @@
-name: apivideo_live_stream
+name: flutter_video_live_stream
 description: Flutter RTMP live stream client for your audio/video application.
-  Made with ♥ by api.video.
+  Made with ♥ by api.video. Maintained fork of apivideo_live_stream with
+  StreamPack 3.2.0 (Android), AGP 9 built-in Kotlin, 16 KB page size support,
+  and an SPM-based iOS SDK (HaishinKit 2.2.5).
 version: 1.2.1
-repository: https://github.com/apivideo/api.video-flutter-live-stream
-issue_tracker: https://github.com/apivideo/api.video-flutter-live-stream/issues
-homepage: https://api.video
+repository: https://github.com/realmastana/api.video-flutter-live-stream
+issue_tracker: https://github.com/realmastana/api.video-flutter-live-stream/issues
+homepage: https://github.com/realmastana/api.video-flutter-live-stream
 
 environment:
   sdk: ">=3.6.0 <4.0.0"

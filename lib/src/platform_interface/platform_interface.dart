@@ -1,4 +1,4 @@
-import 'package:apivideo_live_stream/apivideo_live_stream.dart';
+import 'package:flutter_video_live_stream/flutter_video_live_stream.dart';
 import 'package:flutter/widgets.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
