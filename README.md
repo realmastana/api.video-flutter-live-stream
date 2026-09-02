@@ -1,6 +1,7 @@
 <!--<documentation_excluded>-->
 [![badge](https://img.shields.io/twitter/follow/realmastana?style=social)](https://twitter.com/intent/follow?screen_name=realmastana)
 &nbsp; [![badge](https://img.shields.io/github/stars/realmastana/flutter_video_live_stream?style=social)](https://github.com/realmastana/flutter_video_live_stream)
+&nbsp; [![badge](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-donate-FFDD00?logo=buymeacoffee&style=social)](https://buymeacoffee.com/realmastana)
 &nbsp; [![badge](https://img.shields.io/discourse/topics?server=https%3A%2F%2Fcommunity.api.video)](https://community.api.video)
 ![](https://github.com/apivideo/.github/blob/main/assets/apivideo_banner.png)
 
@@ -242,6 +243,12 @@ api.video Flutter live stream library is using external native libraries:
 |------------|--------------|
 | StreamPack | [StreamPack] |
 | HaishinKit | [HaishinKit] |
+
+## Support
+
+If this package helps you, consider buying me a coffee:
+
+[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/realmastana)
 
 ## FAQ
 
