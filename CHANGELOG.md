@@ -2,7 +2,7 @@
 
 All changes to this project will be documented in this file.
 
-## [1.2.1] - 2026-09-01
+## [1.0.0] - 2026-09-01
 
 - Publish as `flutter_video_live_stream` (maintained fork of
   `apivideo_live_stream`; update your imports to
