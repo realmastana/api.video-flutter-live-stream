@@ -1,6 +1,6 @@
 <!--<documentation_excluded>-->
-[![badge](https://img.shields.io/twitter/follow/api_video?style=social)](https://twitter.com/intent/follow?screen_name=api_video)
-&nbsp; [![badge](https://img.shields.io/github/stars/apivideo/api.video-flutter-live-stream?style=social)](https://github.com/apivideo/api.video-flutter-live-stream)
+[![badge](https://img.shields.io/twitter/follow/realmastana?style=social)](https://twitter.com/intent/follow?screen_name=realmastana)
+&nbsp; [![badge](https://img.shields.io/github/stars/realmastana/flutter_video_live_stream?style=social)](https://github.com/realmastana/flutter_video_live_stream)
 &nbsp; [![badge](https://img.shields.io/discourse/topics?server=https%3A%2F%2Fcommunity.api.video)](https://community.api.video)
 ![](https://github.com/apivideo/.github/blob/main/assets/apivideo_banner.png)
 
@@ -48,6 +48,12 @@ your app.
 ## Project description
 
 This module is made for broadcasting RTMP live stream from smartphone camera.
+
+> This is a **maintained fork** of the
+> [official api.video Flutter live stream plugin](https://github.com/apivideo/api.video-flutter-live-stream),
+> which is no longer actively maintained. The original work is credited to api.video.
+> The fork adds StreamPack 3.2.0 and AGP 9 built-in Kotlin on Android, 16 KB
+> page-size support, and an SPM-based iOS SDK (HaishinKit 2.2.5).
 
 ## Getting started
 
@@ -158,7 +164,7 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
 ## Example App
 
 You can try
-our [example app](https://github.com/apivideo/api.video-flutter-live-stream/tree/master/example),
+our [example app](https://github.com/realmastana/flutter_video_live_stream/tree/master/example),
 feel free to test it.
 
 ### Setup
@@ -172,7 +178,7 @@ anything.
 In URL field, type:
 
 ```shell
-git@github.com:apivideo/api.video-flutter-live-stream.git
+git@github.com:realmastana/flutter_video_live_stream.git
 ```
 
 Wait for the indexation to finish.
@@ -239,8 +245,10 @@ api.video Flutter live stream library is using external native libraries:
 
 ## FAQ
 
-If you have any questions, ask us in the [community](https://community.api.video) or
-use [issues](https://github.com/realmastana/flutter_video_live_stream/issues).
+If you have any questions, feel free to open an
+[issue](https://github.com/realmastana/flutter_video_live_stream/issues) or reach out on
+[GitHub](https://github.com/realmastana) / [Twitter/X](https://twitter.com/realmastana)
+([@realmastana](https://twitter.com/realmastana)).
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
