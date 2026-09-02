@@ -10,6 +10,25 @@ on:
 jobs:
   build_ios:
     name: Build iOS
-    uses: apivideo/.github/.github/workflows/flutter_build_ios.yml@main
-    with:
-      cache: true
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: example/
+    steps:
+      - uses: actions/checkout@v4
+      # HaishinKit 2.2.5's Package.swift requires Swift tools 6.0 (Xcode 16+).
+      # The default Xcode on macos-14 runners is too old to resolve it, so we
+      # pick the latest stable Xcode installed on the runner.
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - name: Setup Flutter
+        id: flutter-action
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash:-${{ hashFiles('**/pubspec.yaml') }}
+      - name: Build iOS application
+        run: flutter build ios --no-codesign

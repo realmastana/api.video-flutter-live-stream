@@ -9,18 +9,9 @@ Map<Channel, String> inflateChannelsMap() {
 
 extension ChannelPrettifier on Channel {
   String toPrettyString() {
-    var result = "";
-    switch (this) {
-      case Channel.mono:
-        result = "mono";
-        break;
-      case Channel.stereo:
-        result = "stereo";
-        break;
-      default:
-        result = "stereo";
-        break;
-    }
-    return result;
+    return switch (this) {
+      Channel.mono => "mono",
+      Channel.stereo => "stereo",
+    };
   }
 }
