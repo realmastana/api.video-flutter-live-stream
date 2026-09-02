@@ -192,62 +192,41 @@ the `YOUR_PROJECT_NAME/example/ios/Runner.xcworkspace` file.
 <br />Click on Example, go in `Signin & Capabilities` tab, add your team and create a unique bundle
 identifier.
 
-### iOS: Xcode 26 / Swift 6.3 compiler crash workaround
+### iOS: Swift Package Manager
 
-With Xcode 26 (Swift 6.3+), release builds can crash inside the Swift compiler while compiling
-HaishinKit 1.9.3 (pulled in by the `ApiVideoLiveStream` pod):
+The iOS implementation is distributed as a Swift package (no CocoaPods). It depends on a fork of
+the [api.video iOS live stream SDK](https://github.com/realmastana/api.video-swift-live-stream)
+that was migrated to **HaishinKit 2.2.5** and is distributed as a Swift package (the upstream SDK
+is CocoaPods-only and still pins HaishinKit 1.9.3, which crashes the Swift 6.3 compiler on
+Xcode 26 — the fork fixes both problems).
 
-```
-Found ownership error?!
-While running pass ... SILFunctionTransform "CopyPropagation" on SILFunction
-"...MixerNodeC6format..." (at Pods/HaishinKit/Sources/IO/AudioNode.swift:137:5)
-```
+Requires Flutter 3.44+ (Swift Package Manager is the default iOS dependency manager since
+Flutter 3.44).
 
-This is a Swift compiler bug triggered by old HaishinKit code, not a source error. Two
-workarounds exist (pick one):
+#### Checkout directory name requirement
 
-#### Option 1: build HaishinKit without optimizations (no external dependency)
+Flutter derives the SwiftPM package identity from the plugin's path basename, and it must match
+the plugin name (`apivideo_live_stream`). This matters when consuming this repository as a path
+dependency (including the example app):
 
-Add this `post_install` hook to your app's `ios/Podfile` to build HaishinKit at `-Onone`:
-
-```ruby
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    flutter_additional_ios_build_settings(target)
-
-    if target.name == 'HaishinKit'
-      target.build_configurations.each do |config|
-        config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
-      end
-    end
-  end
-end
+```bash
+git clone <this-repo-url> apivideo_live_stream   # <- directory name matters!
+cd apivideo_live_stream/example
+flutter build ios
 ```
 
-Then run `flutter clean` (or delete `ios/Pods` and `ios/Podfile.lock`) and rebuild. The example
-app's `ios/Podfile` already includes this hook. Impact is negligible (HaishinKit only does
-RTMP/muxing glue; encoding is hardware-accelerated).
+Git dependencies (`apivideo_live_stream: {git: ...}` in pubspec) are currently broken by a
+Flutter tooling limitation: pub clones into `~/.pub-cache/git/<repo>-<commit>/`, and the commit
+suffix makes the package identity mismatch (`unable to override package ... doesn't match
+override's identity`). Use a path dependency instead, for example a git submodule checked out
+under a directory named `apivideo_live_stream`:
 
-#### Option 2: patch HaishinKit so it compiles optimized (keeps `-O`)
-
-The crash is in the optimizer on a single function (`MixerNode.init(format:)`), and it can be
-dodged by marking that function `@_optimize(none)`. A ready-made patch is checked into this
-repository: `patches/haishinkit-1.9.3-xcode26.patch`.
-
-1. Fork [HaishinKit.swift](https://github.com/shogo4405/HaishinKit.swift) at tag `1.9.3`.
-2. Apply the patch: `git apply patches/haishinkit-1.9.3-xcode26.patch` (or add
-   `@_optimize(none)` above `init(format: AVAudioFormat)` in `Sources/IO/AudioNode.swift`).
-3. Commit and tag your fork (e.g. `1.9.3-xcode26`). Keep the podspec version at `1.9.3`.
-4. In your app's `ios/Podfile`, inside `target 'Runner' do`, add:
-   ```ruby
-   pod 'HaishinKit', :git => 'https://github.com/<your-github-username>/HaishinKit.swift.git', :tag => '1.9.3-xcode26'
-   ```
-   (You can then remove the Option 1 hook.)
-5. Delete `ios/Pods` and `ios/Podfile.lock`, then rebuild.
-
-The rest of HaishinKit stays fully optimized. Note: `@_optimize(none)` is an underscored
-internal Swift attribute (stable for years, used inside Apple's own frameworks) — if a future
-Xcode release changes the optimizer again, re-check the patch.
+```bash
+git submodule add <this-repo-url> packages/apivideo_live_stream
+# pubspec.yaml
+#   apivideo_live_stream:
+#     path: packages/apivideo_live_stream
+```
 
 ## Plugins
 
@@ -267,5 +246,5 @@ use [issues](https://github.com/apivideo/api.video-flutter-live-stream/issues).
 
 [StreamPack]: <https://github.com/ThibaultBee/StreamPack>
 
-[HaishinKit]: <https://github.com/shogo4405/HaishinKit.swift>
+[HaishinKit]: <https://github.com/HaishinKit/HaishinKit.swift>
 

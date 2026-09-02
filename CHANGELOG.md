@@ -13,10 +13,16 @@ All changes to this project will be documented in this file.
   KGP 2.4.0) so apps keep 16 KB page-size aligned native libraries
 - Android: keep 16 KB page size support by never using legacy native
   library packaging
-- iOS: work around a Swift 6.3 (Xcode 26) compiler crash while compiling
-  HaishinKit 1.9.3 in release builds (the example app's Podfile builds
-  HaishinKit at `-Onone`; `patches/haishinkit-1.9.3-xcode26.patch` allows
-  keeping full optimization via a HaishinKit fork — see the README)
+- iOS: migrate to Swift Package Manager (no more CocoaPods) and to a fork of
+  the api.video iOS SDK that is SPM-based and uses HaishinKit 2.2.5 — this
+  fixes the Swift 6.3 (Xcode 26) compiler crash that affected HaishinKit
+  1.9.3, so no Podfile workaround is needed anymore
+- iOS: adapt to the new `@MainActor` SDK API (preview via HaishinKit 2.x
+  `MediaMixerOutput`, `ApiVideoLiveStream(preview:...)` initializer)
+- iOS: note: Flutter derives the SwiftPM package identity from the plugin
+  path basename — see the README for the checkout directory name
+  requirement (git pub dependencies are currently blocked by a Flutter
+  tooling limitation; use a path dependency)
 
 ## [1.2.0] - 2024-02-12
 
