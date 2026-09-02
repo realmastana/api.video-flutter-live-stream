@@ -15,8 +15,8 @@ All changes to this project will be documented in this file.
   library packaging
 - iOS: work around a Swift 6.3 (Xcode 26) compiler crash while compiling
   HaishinKit 1.9.3 in release builds (the example app's Podfile builds
-  HaishinKit at `-Onone`; see the README for the snippet to add to your
-  app's Podfile)
+  HaishinKit at `-Onone`; `patches/haishinkit-1.9.3-xcode26.patch` allows
+  keeping full optimization via a HaishinKit fork — see the README)
 
 ## [1.2.0] - 2024-02-12
 

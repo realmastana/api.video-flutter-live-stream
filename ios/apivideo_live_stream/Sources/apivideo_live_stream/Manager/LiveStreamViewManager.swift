@@ -1,8 +1,9 @@
 import ApiVideoLiveStream
 import AVFoundation
+import Flutter
 import Foundation
 
-protocol LiveStreamViewManagerDelegate {
+protocol LiveStreamViewManagerDelegate: AnyObject {
     func connectionSuccess()
     func connectionFailed(_: String)
     func disconnection()
@@ -10,15 +11,21 @@ protocol LiveStreamViewManagerDelegate {
     func videoSizeChanged(_: CGSize)
 }
 
+@MainActor
 class LiveStreamViewManager: NSObject {
     private let previewTexture: PreviewTexture
     private let liveStream: ApiVideoLiveStream
 
-    var delegate: LiveStreamViewManagerDelegate?
+    weak var delegate: LiveStreamViewManagerDelegate?
 
     init(textureRegistry: FlutterTextureRegistry) throws {
         previewTexture = PreviewTexture(registry: textureRegistry)
-        liveStream = try ApiVideoLiveStream(preview: previewTexture, initialAudioConfig: nil, initialVideoConfig: nil, initialCamera: nil)
+        liveStream = try ApiVideoLiveStream(
+            preview: previewTexture,
+            initialAudioConfig: nil,
+            initialVideoConfig: nil,
+            initialCamera: nil
+        )
 
         super.init()
 

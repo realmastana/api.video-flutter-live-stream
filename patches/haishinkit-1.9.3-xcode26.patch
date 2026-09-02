@@ -1,0 +1,10 @@
+--- a/Sources/IO/AudioNode.swift	2026-09-01 09:54:29
++++ b/Sources/IO/AudioNode.swift	2026-09-01 09:52:30
+@@ -134,6 +134,7 @@
+         componentFlags: 0,
+         componentFlagsMask: 0)
+ 
++    @_optimize(none)
+     init(format: AVAudioFormat) throws {
+         try super.init(description: &mixerComponentDescription)
+     }

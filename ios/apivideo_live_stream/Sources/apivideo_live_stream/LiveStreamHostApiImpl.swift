@@ -1,4 +1,6 @@
 import AVFoundation
+import Flutter
+
 class LiveStreamHostApiImpl: LiveStreamHostApi {
     private let instanceManager: InstanceManager
     private let textureRegistry: FlutterTextureRegistry
@@ -13,66 +15,94 @@ class LiveStreamHostApiImpl: LiveStreamHostApi {
     }
 
     func create() throws -> Int64 {
-        flutterView = try instanceManager.create(textureRegistry: textureRegistry)
-        flutterView!.delegate = self
-        return flutterView!.textureId
+        try MainActor.assumeIsolated {
+            flutterView = try instanceManager.create(textureRegistry: textureRegistry)
+            flutterView!.delegate = self
+            return flutterView!.textureId
+        }
     }
 
     func dispose() throws {
-        flutterView?.dispose()
-        flutterView = nil
+        MainActor.assumeIsolated {
+            flutterView?.dispose()
+            flutterView = nil
+        }
     }
 
     func setVideoConfig(videoConfig: NativeVideoConfig, completion: @escaping (Result<Void, any Error>) -> Void) {
-        flutterView!.videoConfig = videoConfig.toVideoConfig()
-        completion(.success(()))
+        MainActor.assumeIsolated {
+            flutterView!.videoConfig = videoConfig.toVideoConfig()
+            completion(.success(()))
+        }
     }
 
     func setAudioConfig(audioConfig: NativeAudioConfig, completion: @escaping (Result<Void, any Error>) -> Void) {
-        flutterView!.audioConfig = audioConfig.toAudioConfig()
-        completion(.success(()))
+        MainActor.assumeIsolated {
+            flutterView!.audioConfig = audioConfig.toAudioConfig()
+            completion(.success(()))
+        }
     }
 
     func startStreaming(streamKey: String, url: String) throws {
-        try flutterView!.startStreaming(streamKey: streamKey, url: url)
+        try MainActor.assumeIsolated {
+            try flutterView!.startStreaming(streamKey: streamKey, url: url)
+        }
     }
 
     func stopStreaming() throws {
-        flutterView!.stopStreaming()
+        MainActor.assumeIsolated {
+            flutterView!.stopStreaming()
+        }
     }
 
     func startPreview(completion: @escaping (Result<Void, any Error>) -> Void) {
-        flutterView!.startPreview()
-        completion(.success(()))
+        MainActor.assumeIsolated {
+            flutterView!.startPreview()
+            completion(.success(()))
+        }
     }
 
     func stopPreview() throws {
-        flutterView!.stopPreview()
+        MainActor.assumeIsolated {
+            flutterView!.stopPreview()
+        }
     }
 
     func getIsStreaming() throws -> Bool {
-        flutterView?.isStreaming ?? false
+        MainActor.assumeIsolated {
+            flutterView?.isStreaming ?? false
+        }
     }
 
     func getCameraId() throws -> String {
-        flutterView!.camera!.uniqueID
+        MainActor.assumeIsolated {
+            flutterView!.camera!.uniqueID
+        }
     }
 
     func setCameraId(cameraId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        flutterView!.camera = DeviceProvider.getCamera(uniqueID: cameraId)
-        completion(.success(()))
+        MainActor.assumeIsolated {
+            flutterView!.camera = DeviceProvider.getCamera(uniqueID: cameraId)
+            completion(.success(()))
+        }
     }
 
     func getIsMuted() throws -> Bool {
-        flutterView?.isMuted ?? false
+        MainActor.assumeIsolated {
+            flutterView?.isMuted ?? false
+        }
     }
 
     func setIsMuted(isMuted: Bool) throws {
-        flutterView!.isMuted = isMuted
+        MainActor.assumeIsolated {
+            flutterView!.isMuted = isMuted
+        }
     }
 
     func getVideoResolution() throws -> NativeResolution? {
-        flutterView?.videoConfig.resolution.toNativeResolution()
+        MainActor.assumeIsolated {
+            flutterView?.videoConfig.resolution.toNativeResolution()
+        }
     }
 }
 

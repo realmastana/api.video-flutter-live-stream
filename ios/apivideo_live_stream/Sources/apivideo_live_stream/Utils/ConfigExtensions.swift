@@ -1,4 +1,5 @@
 import ApiVideoLiveStream
+import CoreGraphics
 
 extension NativeResolution {
     func toCGSize() -> CGSize {

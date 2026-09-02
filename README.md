@@ -203,10 +203,12 @@ While running pass ... SILFunctionTransform "CopyPropagation" on SILFunction
 "...MixerNodeC6format..." (at Pods/HaishinKit/Sources/IO/AudioNode.swift:137:5)
 ```
 
-This is a Swift compiler bug triggered by old HaishinKit code, not a source error. Until
-[api.video-ios-live-stream](https://github.com/apivideo/api.video-swift-live-stream) ships a
-HaishinKit update (1.9.9 contains the same code; 2.x is a breaking rewrite), add this
-`post_install` hook to your app's `ios/Podfile` to build HaishinKit without optimizations:
+This is a Swift compiler bug triggered by old HaishinKit code, not a source error. Two
+workarounds exist (pick one):
+
+#### Option 1: build HaishinKit without optimizations (no external dependency)
+
+Add this `post_install` hook to your app's `ios/Podfile` to build HaishinKit at `-Onone`:
 
 ```ruby
 post_install do |installer|
@@ -223,7 +225,29 @@ end
 ```
 
 Then run `flutter clean` (or delete `ios/Pods` and `ios/Podfile.lock`) and rebuild. The example
-app's `ios/Podfile` already includes this hook.
+app's `ios/Podfile` already includes this hook. Impact is negligible (HaishinKit only does
+RTMP/muxing glue; encoding is hardware-accelerated).
+
+#### Option 2: patch HaishinKit so it compiles optimized (keeps `-O`)
+
+The crash is in the optimizer on a single function (`MixerNode.init(format:)`), and it can be
+dodged by marking that function `@_optimize(none)`. A ready-made patch is checked into this
+repository: `patches/haishinkit-1.9.3-xcode26.patch`.
+
+1. Fork [HaishinKit.swift](https://github.com/shogo4405/HaishinKit.swift) at tag `1.9.3`.
+2. Apply the patch: `git apply patches/haishinkit-1.9.3-xcode26.patch` (or add
+   `@_optimize(none)` above `init(format: AVAudioFormat)` in `Sources/IO/AudioNode.swift`).
+3. Commit and tag your fork (e.g. `1.9.3-xcode26`). Keep the podspec version at `1.9.3`.
+4. In your app's `ios/Podfile`, inside `target 'Runner' do`, add:
+   ```ruby
+   pod 'HaishinKit', :git => 'https://github.com/<your-github-username>/HaishinKit.swift.git', :tag => '1.9.3-xcode26'
+   ```
+   (You can then remove the Option 1 hook.)
+5. Delete `ios/Pods` and `ios/Podfile.lock`, then rebuild.
+
+The rest of HaishinKit stays fully optimized. Note: `@_optimize(none)` is an underscored
+internal Swift attribute (stable for years, used inside Apple's own frameworks) — if a future
+Xcode release changes the optimizer again, re-check the patch.
 
 ## Plugins
 

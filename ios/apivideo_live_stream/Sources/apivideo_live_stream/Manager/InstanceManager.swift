@@ -1,3 +1,6 @@
+import Flutter
+
+@MainActor
 class InstanceManager {
     private(set) var liveStream: LiveStreamViewManager?
 
