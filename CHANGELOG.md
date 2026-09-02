@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2026-09-02
+
+### Changed
+
+- Shortened the pubspec description to fit the 60-180 character limit so the
+  package passes the "Provide a valid pubspec.yaml" pub.dev scoring check.
+
 ## [1.0.2] - 2026-09-02
 
 ### Fixed
